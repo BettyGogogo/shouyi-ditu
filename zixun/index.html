@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>手艺选择咨询工具</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      color-scheme:light dark;
+      --paper:#f3f1ec;--surface:#fbfaf7;--ink:#171a18;--muted:#5d645f;--line:#d1d0c9;
+      --accent:#c84224;--accent-2:#214b42;--accent-soft:#f2dcd5;--soft:#e8e7e1;--shadow:0 18px 50px rgba(33,30,25,.09);
+      --serif:"Noto Serif SC",serif;--sans:"Noto Sans SC",sans-serif;
+    }
+    @media(prefers-color-scheme:dark){:root{--paper:#171917;--surface:#20231f;--ink:#f2f1eb;--muted:#b9beb8;--line:#3c413b;--accent:#ef7655;--accent-2:#85c7b5;--accent-soft:#4b2a22;--soft:#2b2f2a;--shadow:0 18px 50px rgba(0,0,0,.24)}}
+    *{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65}
+    #map,#method,#test,#results-anchor,#sources{scroll-margin-top:calc(var(--jumpbar-height, 60px) + 14px)}
+    button,input,select{font:inherit}button{color:inherit}.shell{max-width:1240px;margin:auto;padding:0 28px 80px}.hero{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.65fr);gap:60px;padding:72px 0 56px;border-bottom:1px solid var(--line)}
+    .kicker{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:.08em;margin-bottom:16px}.hero h1{font-family:var(--serif);font-size:clamp(42px,6vw,76px);line-height:1.08;letter-spacing:-.045em;margin:0 0 24px;max-width:850px}.hero .lead{font-size:20px;max-width:730px;color:var(--muted);margin:0}.hero-note{align-self:end;border-top:4px solid var(--accent-2);padding-top:18px}.hero-note strong{display:block;font-family:var(--serif);font-size:24px;line-height:1.4;margin-bottom:10px}.hero-note p{margin:0;color:var(--muted)}
+    .jumpbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin:0 calc(50% - 50vw)}.jump-inner{max-width:1240px;margin:auto;padding:10px 28px;display:flex;gap:8px;overflow:auto;scrollbar-width:none}.jump-inner::-webkit-scrollbar{display:none}.jump-inner a{white-space:nowrap;text-decoration:none;color:var(--muted);padding:8px 12px;font-size:14px;font-weight:700}.jump-inner a:hover,.jump-inner a:focus{color:var(--accent)}
+    section{padding:72px 0;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:130px minmax(0,1fr);gap:24px;margin-bottom:36px}.section-no{font-family:var(--serif);font-size:42px;color:var(--accent);line-height:1}.section-head h2{font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.2;letter-spacing:-.03em;margin:0 0 10px}.section-head p{margin:0;color:var(--muted);max-width:780px}
+    .map-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}.search{flex:1 1 280px;position:relative}.search input{width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:13px 16px 13px 43px;border-radius:8px;outline:none}.search svg{position:absolute;left:15px;top:15px;color:var(--muted)}.search input:focus{border-color:var(--accent)}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer}.chip.active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+    .map-meta{display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:13px;margin-bottom:16px}.skills-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.skill-card{background:var(--surface);padding:20px;min-width:0}.skill-top{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:start}.skill-num{font-family:var(--serif);font-size:22px;color:var(--accent);font-weight:900}.skill-card h3{font-size:17px;line-height:1.35;margin:0 0 2px}.skill-en{color:var(--muted);font-size:13px;overflow-wrap:anywhere}.domain-dot{width:9px;height:9px;border-radius:50%;margin-top:8px;background:var(--domain)}.skill-more{grid-column:2 / -1;margin-top:12px;padding-top:14px;border-top:1px solid var(--line);display:none}.skill-card.open .skill-more{display:block}.skill-more dl{margin:0;display:grid;grid-template-columns:68px 1fr;gap:8px 12px;font-size:14px}.skill-more dt{font-weight:800;color:var(--accent-2)}.skill-more dd{margin:0;color:var(--muted)}.expand{border:0;background:transparent;padding:8px 0 0;margin-left:60px;color:var(--accent);font-weight:800;font-size:13px;cursor:pointer}.empty{grid-column:1/-1;padding:44px;text-align:center;background:var(--surface);color:var(--muted)}
+    .method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.method{background:var(--surface);padding:26px 22px;min-height:260px}.method b{font-family:var(--serif);font-size:54px;line-height:1;color:var(--accent-soft);display:block;margin-bottom:12px}.method h3{font-family:var(--serif);font-size:23px;margin:0 0 10px}.method p{margin:0;color:var(--muted);font-size:14px}.principle{margin-top:30px;background:var(--accent-2);color:#fff;padding:30px;display:grid;grid-template-columns:1fr 1.6fr;gap:36px;align-items:center}.principle strong{font-family:var(--serif);font-size:28px;line-height:1.4}.principle p{margin:0;color:#e6f2ee}
+    .consult-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);gap:36px;align-items:start}.panel{background:var(--surface);border:1px solid var(--line);padding:26px}.panel h3{font-family:var(--serif);font-size:24px;margin:0 0 8px}.panel-intro{color:var(--muted);font-size:14px;margin:0 0 22px}.scenario-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.scenario{position:relative}.scenario input{position:absolute;left:14px;top:15px;width:18px;height:18px;margin:0;accent-color:var(--accent);cursor:pointer}.scenario label{display:block;height:100%;padding:14px 14px 14px 43px;border:1px solid var(--line);border-radius:7px;cursor:pointer;font-size:14px;line-height:1.5;background:var(--paper)}.scenario input:checked+label{border-color:var(--accent);background:var(--accent-soft)}.scenario input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}.counter{color:var(--muted);font-size:13px;margin-top:12px}
+    .filters{display:grid;gap:16px}.field label{display:block;font-weight:800;font-size:14px;margin-bottom:6px}.field small{display:block;color:var(--muted);margin-top:6px;line-height:1.4}.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}.action{width:100%;margin-top:22px;border:0;border-radius:6px;background:var(--accent);color:#fff;padding:14px 18px;font-weight:800;cursor:pointer}.action:hover{filter:brightness(.94)}.action.secondary{background:var(--ink);color:var(--paper);width:auto;margin-top:0}.action:disabled{opacity:.45;cursor:not-allowed}
+    .results{display:none;margin-top:34px;border-top:4px solid var(--accent);padding-top:28px}.results.show{display:block}.result-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px}.result-head h3{font-family:var(--serif);font-size:30px;margin:0}.result-head p{margin:4px 0 0;color:var(--muted);font-size:14px}.candidate-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.candidate{background:var(--surface);border:1px solid var(--line);padding:20px}.candidate-rank{font-family:var(--serif);color:var(--accent);font-size:14px;font-weight:900}.candidate h4{font-size:20px;margin:8px 0 2px}.candidate .en{font-size:12px;color:var(--muted);margin-bottom:15px}.lens{margin:0;padding:0;list-style:none;display:grid;gap:9px;font-size:13px}.lens li{border-top:1px solid var(--line);padding-top:9px;color:var(--muted)}.lens b{color:var(--ink)}.verify{margin-top:20px;background:var(--soft);padding:22px}.verify h4{font-family:var(--serif);font-size:20px;margin:0 0 12px}.verify ol{margin:0;padding-left:22px;display:grid;gap:8px;color:var(--muted)}.copy-row{display:flex;gap:12px;align-items:center;margin-top:18px}.copy-status{font-size:13px;color:var(--accent-2)}
+    .source-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px}.source-layout h3{font-family:var(--serif);font-size:22px;margin:0 0 10px}.source-layout p,.source-layout li{color:var(--muted);font-size:14px}.source-layout ol{padding-left:22px;margin:0}.source-layout a{color:var(--accent-2);text-underline-offset:3px}.caveat{border-top:1px solid var(--line);margin-top:18px;padding-top:18px}.footer-note{text-align:center;padding:34px 0 0;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;gap:34px;padding-top:52px}.hero-note{max-width:540px}.method-grid{grid-template-columns:repeat(2,1fr)}.consult-layout{grid-template-columns:1fr}.candidate-list{grid-template-columns:1fr}.source-layout{grid-template-columns:1fr}.principle{grid-template-columns:1fr}.section-head{grid-template-columns:80px 1fr}}
+    @media(max-width:640px){.shell{padding:0 16px 60px}.jump-inner{padding:8px 10px;flex-wrap:wrap;justify-content:center}.jump-inner a{padding:5px 7px;font-size:12px}.hero{padding:42px 0}.hero h1{font-size:42px}.hero .lead{font-size:17px}.section-head{grid-template-columns:1fr;gap:8px}.section-no{font-size:24px}.skills-grid{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr}.method{min-height:0}.scenario-grid{grid-template-columns:1fr}.panel{padding:19px}.result-head{display:block}.result-head .action{margin-top:14px}.map-meta{display:block}.map-meta span{display:block}.principle{padding:22px}.source-layout{gap:24px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<nav class="sydt-nav" style="background:#0d1b2a;border-bottom:2px solid #c9a24b;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;"><a href="../" style="color:#e8c876;text-decoration:none;font-weight:700;font-size:15px;">← 手艺地图 · 首页</a><span style="display:flex;gap:14px;flex-wrap:wrap;"><a href="../tiyan/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">免费体验</a><a href="../zixun/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">咨询工具</a><a href="../guanjun/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">冠军拆解</a></span></nav>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <div class="kicker">给普通学生的一张手艺地图</div>
+        <h1>先看全世界在比什么，再判断哪门手艺值得你亲手验证。</h1>
+        <p class="lead">用世界技能大赛 64 个项目打开选择面，再把“我适合什么”翻译成生活证据。最后留下 2–3 个候选，不押注，先小成本试。</p>
+      </div>
+      <aside class="hero-note">
+        <strong>目标不是一次选对，<br>而是尽快排除错的。</strong>
+        <p>这是一套咨询辅助方法，不替代当地学校、行业从业者与真实岗位信息。</p>
+      </aside>
+    </header>
+  </div>
+  <nav class="jumpbar" aria-label="页面导航"><div class="jump-inner">
+    <a href="#map">01 手艺地图</a><a href="#method">02 四维筛子</a><a href="#test">03 场景自测</a><a href="#results-anchor">04 候选与验证</a><a href="#sources">资料口径</a>
+  </div></nav>
+  <main class="shell">
+    <section id="map">
+      <div class="section-head"><div class="section-no">01</div><div><h2>64 项手艺地图</h2><p>按世界技能组织六大领域展开。搜索项目、英文名或任务关键词；点击卡片可查看比赛任务与评分重点。</p></div></div>
+      <div class="map-tools">
+        <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2"/></svg><input id="skillSearch" type="search" placeholder="例如：维修、照护、设计、PLC…" aria-label="搜索技能项目"></div>
+        <div class="chips" id="domainChips" aria-label="领域筛选"></div>
+      </div>
+      <div class="map-meta"><span id="skillCount">显示 64 / 64 项</span><span>清单快照：上海 2026 · 2026-09-29 核对</span></div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <section id="method">
+      <div class="section-head"><div class="section-no">02</div><div><h2>让每个方向过四道筛子</h2><p>不要只问“热门吗”。四道问题需要同时成立，尤其是输不起高成本试错的学生。</p></div></div>
+      <div class="method-grid">
+        <article class="method"><b>1</b><h3>真需求</h3><p>它解决的是不是人一直会有的问题：吃、住、修、美、照顾人？越靠近日常刚需，越值得进入初选；但仍要看本地岗位。</p></article>
+        <article class="method"><b>2</b><h3>AI 韧性</h3><p>越接近非结构化物理世界，越需要现场判断、手眼配合和与人沟通，越难被“整碗端走”。数字技能则要看能否把 AI 变成杠杆。</p></article>
+        <article class="method"><b>3</b><h3>够得着</h3><p>算清学费、学制、工具、身体条件与时间成本。关键问题不是“能不能学”，而是能否先体验、边学边赚，以及当地有没有真实入口。</p></article>
+        <article class="method"><b>4</b><h3>合不合适</h3><p>不用抽象性格标签，用已经发生过的生活证据：你愿意反复做什么？遇到麻烦时，你下意识先动手、先观察、先照顾人，还是先拆解系统？</p></article>
+      </div>
+      <div class="principle"><strong>不是找“AI 永远碰不到”的手艺。</strong><p>要找的是“有了 AI，你更强”的手艺。AI 可以协助画图、诊断、排程和复盘；真正的护城河，是你能把工具带进真实现场，并对最后的结果负责。</p></div>
+    </section>
+
+    <section id="test">
+      <div class="section-head"><div class="section-no">03</div><div><h2>把“适合”换成生活场景</h2><p>请选择 2–4 个“你确实做过或愿意反复做”的场景，而不是你觉得听起来体面的选项。选择只保留在本次打开期间。</p></div></div>
+      <div class="consult-layout">
+        <div class="panel">
+          <h3>哪些瞬间像你？</h3><p class="panel-intro">选得少一点、真一点。系统会依据场景与项目任务的相似性做初筛。</p>
+          <div class="scenario-grid" id="scenarioGrid"></div><div class="counter" id="sceneCounter">已选 0 项，至少选 2 项</div>
+        </div>
+        <aside class="panel">
+          <h3>设定这次咨询的边界</h3><p class="panel-intro">它们不是职业分数，而是本次筛选更看重什么。</p>
+          <div class="filters">
+            <div class="field"><label for="needPref">真需求：优先看什么</label><select id="needPref"><option value="basic">优先基础生活与实体服务</option><option value="balanced">需求类型不限，先看匹配</option></select><small>“基础需求”只是初筛方向，不代表当地一定有岗位。</small></div>
+            <div class="field"><label for="aiPref">AI 韧性：希望工作靠近哪里</label><select id="aiPref"><option value="field">更多现场动手与判断</option><option value="mixed">数字工具与实体执行兼顾</option><option value="digital">可以偏数字，但愿意持续升级</option></select></div>
+            <div class="field"><label for="reachPref">够得着：当前可接受的验证方式</label><select id="reachPref"><option value="observe">先免费观察或访谈</option><option value="trial">可以报一次短期体验</option><option value="study">可以进一步考察系统学习</option></select><small>具体学费、学制、身体要求和学徒机会需在当地核实。</small></div>
+          </div>
+          <button class="action" id="generateBtn" disabled>生成 3 个候选方向</button>
+        </aside>
+      </div>
+      <div id="results-anchor"></div>
+      <div class="results" id="results" aria-live="polite"></div>
+    </section>
+
+    <section id="sources">
+      <div class="section-head"><div class="section-no">i</div><div><h2>资料口径与使用边界</h2><p>项目清单、领域归属、任务与评分重点来自 2026-09-29 完成的公开资料核对；推荐排序是咨询框架，不是就业预测。</p></div></div>
+      <div class="source-layout">
+        <div><h3>清单与赛事信息</h3><ol>
+          <li><a href="https://worldskills.org/skills" target="_blank" rel="noopener">WorldSkills：全部技能与六大领域</a></li>
+          <li><a href="https://english.shanghai.gov.cn/en-WorldSkillsServicesGuides/20260922/7d66ad78dc5b44f2ba768066a5978b32.html" target="_blank" rel="noopener">上海市官方英文场馆指南</a></li>
+          <li><a href="https://worldskills.org/media/news/seven-new-skills-confirmed-worldskills-competition-2026/" target="_blank" rel="noopener">WorldSkills：上海 2026 七个新增项目</a></li>
+          <li><a href="https://results.worldskills.org/" target="_blank" rel="noopener">WorldSkills 官方成绩站</a></li>
+        </ol></div>
+        <div><h3>需要特别注意</h3><p>上海 2026 的 64 项均在 4 个竞赛日内完成。只有技术文件明确披露时，本工具才写净作业时长；其余不猜测具体小时数。</p><p class="caveat"><strong>编号未完全核实：</strong>零售与无人机系统占据 43、64 两个编号，但公开资料未能确认一一对应关系。页面沿用“零售 43 / 无人机系统 64”的暂定标注，使用时请以世界技能组织后续正式文件为准。</p></div>
+      </div>
+      <div class="footer-note">先看地图，再做验证。职业选择不靠一张测试定终身。</div>
+    </section>
+  </main>
+<script>
+(function(){
+  const jumpbar=document.querySelector('.jumpbar');
+  function syncJumpbarHeight(){document.documentElement.style.setProperty('--jumpbar-height',`${jumpbar.offsetHeight}px`)}
+  syncJumpbarHeight();
+  window.addEventListener('resize',syncJumpbarHeight,{passive:true});
+  if('ResizeObserver' in window)new ResizeObserver(syncJumpbarHeight).observe(jumpbar);
+
+  const domains=[
+    {id:'build',name:'结构与建筑',color:'#b54c2e'},
+    {id:'make',name:'制造与工程',color:'#276154'},
+    {id:'ict',name:'信息与通信',color:'#356b8c'},
+    {id:'creative',name:'创意艺术与时尚',color:'#a34e6f'},
+    {id:'service',name:'社会与个人服务',color:'#a67818'},
+    {id:'transport',name:'运输与物流',color:'#596173'}
+  ];
+  const skills=[
+    [3,'智慧安防技术','Intelligent Security Technology','build','风险评估、方案设计，安装调试监控、门禁、报警、传感器网络与综合安防平台。','方案合理性、安装与联调质量、智能分析准确性、运维规范。',['repair','systems','digital'],1,2],
+    [12,'瓷砖贴面','Wall and Floor Tiling','build','按图纸完成放线、切割、铺贴与勾缝，制作墙地面装饰贴面。','尺寸精度、平整度、缝隙均匀、切割与粘结质量、整体美观。',['precision','outdoor'],1,2],
+    [15,'管道与制暖','Plumbing and Heating','build','规划、安装并测试给排水与供暖管道，诊断并修复故障。','尺寸与走向、连接密封、系统功能与安全规范。',['repair','outdoor'],1,2],
+    [18,'电气装置','Electrical Installations','build','完成建筑照明、动力、配电与控制线路的布线、接线和检测。','安装工艺、功能正确、绝缘与安全测试、规范符合度。',['repair','systems'],1,2],
+    [20,'砌筑','Bricklaying','build','按图纸砌筑墙体、拱券等构造，并完成切割与勾缝。','垂直度、水平度、尺寸偏差、灰缝均匀与外观。',['outdoor','precision'],1,2],
+    [21,'抹灰与隔墙系统','Plastering and Drywall Systems','build','完成墙面抹灰、龙骨与板材安装、接缝和饰面处理。','表面平整、垂直度、接缝质量与细部工艺。',['outdoor','precision'],1,2],
+    [22,'油漆与装饰','Painting and Decorating','build','完成基层处理、调色、线条绘制与装饰性涂装。','色彩准确、涂层均匀、线条精度、质感与整体效果。',['visual','outdoor'],1,2],
+    [24,'家具制作','Cabinetmaking','build','按图纸完成开料、榫卯、组装、打磨与表面处理，制作小型家具。','尺寸精度、接合质量、牢固度、表面处理与成品美观。',['precision','repair'],0,2],
+    [25,'精细木工','Joinery','build','净22小时完成读图、放样、开料、铣型、手工刨削、榫接、组装与打磨。','接缝控制在0.4毫米以内，满分要求0.2毫米以内；兼顾工艺与成品质量。',['precision'],0,2],
+    [26,'木工','Carpentry','build','按图纸制作并组装框架、楼梯或屋架等木结构构件。','结构尺寸、节点连接、整体稳固与工艺规范。',['precision','outdoor'],1,2],
+    [37,'园艺','Landscape Gardening','build','按设计图完成铺装、砌筑、水景、种植与木作，建造小型景观园。','施工质量、尺寸、植物配置、景观效果与安全。',['outdoor','visual'],1,2],
+    [38,'制冷与空调','Refrigeration and Air Conditioning','build','安装、调试和检修制冷空调系统，完成焊接、抽真空、充注与电气控制。','制冷性能、管路工艺、电气安全、检漏与规范操作。',['repair','systems'],1,2],
+    [46,'混凝土建筑','Concrete Construction Work','build','按图纸完成模板支设、钢筋绑扎与混凝土浇筑。','模板与钢筋尺寸、成型质量、表面观感和安全。',['outdoor'],1,2],
+    [58,'数字建造','Digital Construction','build','使用BIM等工具完成模型深化、施工模拟和测量放样数据应用。','数字模型准确性、施工方案合理性与数字化应用能力。',['digital','systems'],0,1],
+    [1,'工业机械','Industrial Mechanics','make','完成机械设备精密装配、传动系统安装、调试、维护与故障诊断。','装配精度、功能实现、故障排除与安全规范。',['repair','systems','precision'],1,2],
+    [4,'机电一体化','Mechatronics','make','双人组装调试机电工作站，集成机械、气动、电气与PLC控制。','系统功能、程序逻辑、装配质量与团队协作。',['systems','repair'],0,1],
+    [5,'CAD机械设计','Mechanical Engineering CAD','make','完成二维/三维建模、工程图、装配动画或仿真。','建模准确、图纸规范、可制造性与设计表达。',['digital','precision'],0,0],
+    [6,'数控车','CNC Turning','make','编制数控程序并用数控车床加工回转体零件。','尺寸与形位公差、表面粗糙度、工艺与安全。',['precision','systems'],0,1],
+    [7,'数控铣','CNC Milling','make','编程并用数控铣床或加工中心加工复杂零件。','尺寸与形位公差、表面质量、编程效率与工艺规范。',['precision','systems'],0,1],
+    [10,'焊接','Welding','make','用多种焊接方法完成板材与管材焊接。','焊缝外观、无损检测、尺寸精度与安全规范。',['precision','outdoor'],1,2],
+    [16,'电子技术','Electronics','make','设计、装配、调试并检修电子电路，包括PCB焊接、测量与排故。','电路功能、装配工艺、故障定位与测量规范。',['repair','systems','precision'],0,1],
+    [19,'工业控制','Industrial Control','make','安装、编程并调试PLC、变频器、传感器与人机界面。','控制功能、程序正确、接线工艺与安全规范。',['systems','digital'],0,1],
+    [23,'自主移动机器人','Autonomous Mobile Robotics','make','围绕场景需求设计、组装、编程与调试移动机器人。','任务完成度、导航精度、可靠性与工程文档。',['systems','digital'],0,1],
+    [48,'工业4.0','Industry 4.0','make','双人搭建智能产线，集成自动化、传感器、网络通信与数据分析。','系统集成、数据互通、运行稳定与优化能力。',['systems','digital'],0,1],
+    [52,'化学实验室技术','Chemical Laboratory Technology','make','完成定性、定量与物理化学分析，判断原料、过程与成品是否达标。','结果准确、操作规范、实验室安全、逻辑与报告。',['precision','systems'],0,1],
+    [55,'水处理技术','Water Technology','make','完成水质检测、设备运维与工艺调节。','出水指标、操作规范、故障处理与安全环保。',['systems','repair'],1,1],
+    [57,'增材制造','Additive Manufacturing','make','完成三维建模、打印工艺规划、3D打印与后处理。','模型质量、尺寸与表面、工艺参数合理性。',['digital','precision'],0,1],
+    [59,'工业设计技术','Industrial Design Technology','make','净22小时完成概念、CAD与3D打印、原型、展示和推广。','原创性与可行性、建模与原型、表达与说服力。',['visual','digital','precision'],0,1],
+    [60,'光电技术','Optoelectronic Technology','make','完成光电元件与系统的光路搭建、装调、检测和联调。','光学性能、装调精度、测试规范与安全。',['precision','systems'],0,1],
+    [62,'可再生能源','Renewable Energy','make','安装、调试并运维光伏或风电等可再生能源系统。','发电性能、安装工艺、电气安全与故障诊断。',['outdoor','systems','repair'],1,2],
+    [63,'机器人系统集成','Robot Systems Integration','make','双人将工业机器人与外围设备集成为自动化工作站。','系统功能、节拍效率、稳定性与安全。',['systems','digital'],0,1],
+    [2,'信息网络布线','ICT Network Infrastructure','ict','完成光纤、铜缆、智能布线、熔接速度与故障排除五个模块。','安装质量、链路测量、熔接速度、故障定位与规范。',['repair','systems','digital'],0,1],
+    [8,'移动应用开发','Mobile Applications Development','ict','按客户需求完成移动应用界面与功能开发，并进行测试驱动开发。','功能、代码质量、可靠性、可更新性与易用性。',['digital','systems'],0,0],
+    [9,'软件应用开发','Software Applications Development','ict','完成企业应用的需求分析、设计与开发。','需求实现、架构、代码质量与文档规范。',['digital','systems'],0,0],
+    [11,'软件测试','Software Testing','ict','净16小时以上完成接口、性能与功能自动化测试。','用例覆盖与有效性、脚本质量、缺陷定位与报告。',['digital','systems','repair'],0,0],
+    [17,'网站技术','Web Technologies','ict','完成网站前后端、交互、数据库与服务器端逻辑。','功能、界面与易用性、代码规范与安全。',['digital','visual'],0,0],
+    [39,'网络系统管理','IT Network Systems Administration','ict','部署、配置与运维企业网络和服务器，处理路由、服务与安全策略。','连通与可用性、配置、故障排除与安全加固。',['digital','systems','repair'],0,0],
+    [53,'云计算','Cloud Computing','ict','在云平台完成架构、部署、迁移与运维优化。','架构合理、部署正确、高可用、成本与安全合规。',['digital','systems'],0,0],
+    [54,'网络安全','Cyber Security','ict','完成漏洞分析、入侵检测、应急响应与安全加固。','威胁发现处置、加固、分析报告与操作规范。',['digital','systems','repair'],0,0],
+    [27,'珠宝加工','Jewellery','creative','完成贵金属首饰锯切、锉削、焊接、镶嵌与抛光。','尺寸精度、镶嵌牢度、抛光质量与美感。',['precision','visual'],0,2],
+    [28,'花艺','Floristry','creative','按主题完成花束、花篮、婚礼花艺与大型装置。','创意、色彩与材料搭配、技艺与主题表达。',['visual','care'],0,2],
+    [31,'时装技术','Fashion Technology','creative','完成服装制版、裁剪、缝制与整烫，制作成衣。','版型、缝制工艺、合体度与成品效果。',['visual','precision'],0,2],
+    [40,'平面设计技术','Graphic Design Technology','creative','按brief完成品牌视觉、海报或包装设计。','原创性、传达效果、排版色彩与制作规范。',['visual','digital'],0,0],
+    [44,'商品展示技术','Visual Merchandising','creative','按品牌调性设计并搭建橱窗和店内陈列。','吸引力、品牌表达、空间利用与完成度。',['visual','people'],0,2],
+    [45,'数字交互媒体设计','Digital Interactive Media Design','creative','设计开发交互界面、动态视觉与多媒体叙事作品。','交互流畅、视觉质量、技术实现与创意表达。',['visual','digital'],0,0],
+    [50,'3D数字游戏艺术','3D Digital Game Art','creative','完成游戏资产的3D建模、贴图与渲染。','造型贴图、技术规范与艺术风格统一。',['visual','digital','precision'],0,0],
+    [29,'美发','Hairdressing','service','为真人模特完成剪发、烫染与造型。','技术精准、造型与色彩、卫生安全、顾客沟通。',['beauty','people','visual'],1,2],
+    [30,'美容','Beauty Therapy','service','完成面部、身体护理与美甲等服务。','手法、护理效果、卫生安全与顾客体验。',['beauty','care','people'],1,2],
+    [32,'糖艺/西点制作','Pâtisserie and Confectionery','service','制作西点、巧克力、糖艺展示品等甜品。','口味、质地、装饰、糖艺技巧与卫生。',['feed','precision','visual'],1,2],
+    [34,'烹饪（西餐）','Cooking','service','按菜单完成多道西餐菜品。','口味、火候、摆盘、搭配、厨房组织与卫生。',['feed','people'],1,2],
+    [35,'餐厅服务','Restaurant Service','service','完成摆台、酒水、上菜与顾客接待等流程。','服务流程、操作、应变、仪表与顾客沟通。',['people','care','feed'],1,2],
+    [41,'健康和社会照护','Health and Social Care','service','在模拟场景中完成健康照护与社会支持任务。','操作安全、沟通共情、照护计划与职业素养。',['care','people'],1,2],
+    [42,'口腔修复工艺技术','Dental Prosthetics','service','把口腔扫描数据转化为牙冠、牙桥、义齿或护齿器。','精度与密合、咬合功能、外观和流程规范。',['precision','digital','care'],1,1],
+    [43,'零售','Retail Sales','service','完成商品销售、售后、数字销售、陈列、收银和顾客沟通。','销售技巧、顾客服务、数字工具、陈列与合规。',['people','visual'],1,2,true],
+    [47,'烘焙','Bakery','service','制作面包、糕点等烘焙产品。','发酵与烘烤、口感风味、造型与卫生。',['feed','precision'],1,2],
+    [56,'酒店接待','Hotel Reception','service','完成入住办理、咨询投诉处理与PMS系统操作。','流程、沟通、系统熟练度与应急处理。',['people','care','digital'],1,1],
+    [13,'车身修理','Autobody Repair','transport','完成事故车身钣金整形、焊接、测量与校正。','修复精度、表面平整、结构尺寸恢复与安全。',['repair','precision','transport'],1,2],
+    [14,'飞机维修','Aircraft Maintenance','transport','检查、维修并排除航空器部件故障。','检查细致、维修规范、诊断准确与航空安全。',['repair','precision','transport'],1,2],
+    [33,'汽车技术','Automobile Technology','transport','检测、诊断并维修发动机、底盘和电气系统。','诊断逻辑、维修质量、测量数据与规范操作。',['repair','transport','systems'],1,2],
+    [36,'汽车喷漆','Car Painting','transport','完成腻子、打磨、调色、喷涂与抛光。','漆面、颜色匹配、遮蔽工艺与环保安全。',['visual','precision','transport'],0,2],
+    [49,'重型车辆维修','Heavy Vehicle Technology','transport','检测、诊断并维修卡车、工程机械等重型车辆。','故障诊断、维修工艺、系统测试与安全。',['repair','transport','systems'],1,2],
+    [51,'物流与货运代理','Logistics and Freight Forwarding','transport','完成报价、订舱、单证、报关、仓储配送方案。','经济与可行性、单证、时效成本与客户沟通。',['systems','people','transport'],1,0],
+    [61,'轨道车辆技术','Rail Vehicle Technology','transport','检查、调试轨道车辆，分析运行数据、评估健康并处理故障。','检测、诊断处置、数据分析与安全规范。',['repair','transport','systems'],1,2],
+    [64,'无人机系统','Unmanned Aerial Systems','transport','组装维修、编程调试无人机，完成手动飞行、自主规划与嵌入式视觉任务。','组织8%、沟通8%、组装12%、系统12%、手动飞行16%、自主规划20%、高级驾驶与视觉24%。',['transport','systems','digital'],0,1,true]
+  ].map(x=>({id:x[0],cn:x[1],en:x[2],domain:x[3],task:x[4],score:x[5],tags:x[6],basic:x[7],physical:x[8],uncertain:x[9]||false}));
+
+  const scenarios=[
+    ['repair','家里东西坏了，我总想先拆开看看。'],['feed','我愿意花一下午做饭，也享受“投喂”的快乐。'],
+    ['beauty','我喜欢捯饬自己或朋友的发型、妆容。'],['precision','拼装、打磨、手工时，我享受“严丝合缝”。'],
+    ['care','照顾老人、小孩或身体不适的人，我有耐心。'],['outdoor','比起久坐，我更愿意在现场把东西建出来。'],
+    ['systems','面对机器或流程，我会追着问“它为什么没跑起来”。'],['digital','我能长时间调试软件、模型或数字工具。'],
+    ['visual','我对颜色、比例、造型和呈现方式很敏感。'],['people','面对陌生人，我愿意倾听、解释并处理突发情况。'],
+    ['transport','车辆、轨道、飞机或无人机的运行原理会吸引我。']
+  ];
+  const dMap=Object.fromEntries(domains.map(d=>[d.id,d]));
+  const chips=document.getElementById('domainChips'), grid=document.getElementById('skillsGrid'), search=document.getElementById('skillSearch');
+  let activeDomain='all';
+  chips.innerHTML='<button class="chip active" data-domain="all">全部 64</button>'+domains.map(d=>`<button class="chip" data-domain="${d.id}">${d.name}</button>`).join('');
+  function renderSkills(){
+    const q=search.value.trim().toLowerCase();
+    const filtered=skills.filter(s=>(activeDomain==='all'||s.domain===activeDomain)&&(!q||[s.cn,s.en,s.task,s.score,String(s.id)].join(' ').toLowerCase().includes(q)));
+    document.getElementById('skillCount').textContent=`显示 ${filtered.length} / 64 项`;
+    grid.innerHTML=filtered.length?filtered.map(s=>`<article class="skill-card" style="--domain:${dMap[s.domain].color}"><div class="skill-top"><div class="skill-num">${String(s.id).padStart(2,'0')}${s.uncertain?'*':''}</div><div><h3>${s.cn}</h3><div class="skill-en">${s.en}</div></div><span class="domain-dot" title="${dMap[s.domain].name}"></span></div><button class="expand" aria-expanded="false">查看任务与评分 ↓</button><div class="skill-more"><dl><dt>比赛任务</dt><dd>${s.task} 比赛在4个竞赛日内分模块完成。</dd><dt>评分重点</dt><dd>${s.score}</dd></dl></div></article>`).join(''):'<div class="empty">没有找到匹配项目，换个关键词试试。</div>';
+  }
+  chips.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;activeDomain=b.dataset.domain;chips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));renderSkills();});
+  search.addEventListener('input',renderSkills);
+  grid.addEventListener('click',e=>{const b=e.target.closest('.expand');if(!b)return;const card=b.closest('.skill-card');card.classList.toggle('open');const open=card.classList.contains('open');b.setAttribute('aria-expanded',String(open));b.textContent=open?'收起 ↑':'查看任务与评分 ↓';});
+  renderSkills();
+
+  const sceneGrid=document.getElementById('scenarioGrid');
+  sceneGrid.innerHTML=scenarios.map((s,i)=>`<div class="scenario"><input type="checkbox" id="scene${i}" value="${s[0]}" aria-label="${s[1]}"><label for="scene${i}">${s[1]}</label></div>`).join('');
+  const selected=new Set(); const btn=document.getElementById('generateBtn');
+  sceneGrid.addEventListener('change',e=>{if(!e.target.matches('input'))return;if(e.target.checked){if(selected.size>=4){e.target.checked=false;return}selected.add(e.target.value)}else selected.delete(e.target.value);document.getElementById('sceneCounter').textContent=`已选 ${selected.size} 项${selected.size<2?'，至少选 2 项':selected.size===4?'，已达上限':'，最多选 4 项'}`;btn.disabled=selected.size<2;});
+  function pickCandidates(){
+    const need=document.getElementById('needPref').value, ai=document.getElementById('aiPref').value;
+    const ranked=skills.map(s=>{let score=0;const matched=s.tags.filter(t=>selected.has(t));score+=matched.length*5;if(need==='basic'&&s.basic)score+=2;if(ai==='field')score+=s.physical*1.6;if(ai==='mixed')score+=s.physical===1?3:1;if(ai==='digital')score+=s.physical===0?3:(s.physical===1?2:0);return{s,score,matched};}).filter(x=>x.matched.length).sort((a,b)=>b.score-a.score||a.s.id-b.s.id);
+    const chosen=[];for(const item of ranked){if(chosen.length===3)break;chosen.push(item)}return chosen;
+  }
+  const sceneNames=Object.fromEntries(scenarios);
+  function reachText(){const v=document.getElementById('reachPref').value;return v==='observe'?'先找真实工作现场观察或访谈，不急着报名。':v==='trial'?'先选一次短期体验，不先购买长期课程。':'可继续考察系统学习，但先核实学费、学制、身体要求与就业入口。'}
+  btn.addEventListener('click',()=>{
+    const candidates=pickCandidates(), results=document.getElementById('results');
+    const cards=candidates.map((x,i)=>{const s=x.s;const fit=x.matched.map(t=>sceneNames[t]).join('、');const need=s.basic?'与基础生活、实体服务或日常运行关联较强。':'需求强弱更依赖行业与本地岗位，需单独核实。';const ai=s.physical===2?'现场动手、手眼配合与即时判断占比较高。':s.physical===1?'数字工具与现实执行交叉，关键是把结果落到现场。':'以数字环境为主，需要持续更新工具与方法。';return `<article class="candidate"><div class="candidate-rank">候选 ${i+1} · ${String(s.id).padStart(2,'0')}</div><h4>${s.cn}</h4><div class="en">${s.en}</div><ul class="lens"><li><b>为什么像你：</b>${fit}</li><li><b>真需求：</b>${need}</li><li><b>AI 韧性：</b>${ai}</li><li><b>够得着：</b>尚未核实你所在地的费用、学制、身体条件与学徒机会。</li></ul></article>`}).join('');
+    results.innerHTML=`<div class="result-head"><div><h3>先验证这 3 个方向</h3><p>按你选择的生活场景与筛选偏好排序，不代表职业优劣或录取结论。</p></div><button class="action secondary" id="copyBtn">复制咨询摘要</button></div><div class="candidate-list">${cards}</div><div class="verify"><h4>便宜验证清单</h4><ol><li>去与候选方向相关的店、工作室、工地、车间或服务现场，看半天真实工作；记录“最脏、最累、最重复”的部分你能否接受。</li><li>${reachText()}</li><li>找一位一线从业者聊一次：新人第一年每天做什么？最容易劝退的地方是什么？当地正规入口在哪里？</li><li>验证后只回答三个问题：我愿不愿意再来一次？我能不能忍受它的枯燥？我是否想把某个动作练得更准？</li></ol><div class="copy-row"><span class="copy-status" id="copyStatus"></span></div></div>`;
+    results.classList.add('show');results.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('copyBtn').addEventListener('click',async()=>{const lines=['手艺方向初筛','',...candidates.map((x,i)=>`${i+1}. ${x.s.cn} / ${x.s.en}\n   匹配场景：${x.matched.map(t=>sceneNames[t]).join('；')}`),'','便宜验证：','1. 去真实工作现场看半天，观察最脏、最累、最重复的部分。',`2. ${reachText()}`,'3. 找一线从业者聊一次，问新人日常、劝退点和当地正规入口。','','提醒：这是咨询初筛，不是就业预测；学费、学制、身体条件与学徒机会需在当地核实。'];try{await navigator.clipboard.writeText(lines.join('\n'));document.getElementById('copyStatus').textContent='已复制，可直接粘贴进咨询记录。'}catch(e){document.getElementById('copyStatus').textContent='当前环境不允许复制，请手动选取上方内容。'}});
+  });
+})();
+</script>
+</body>
+</html>

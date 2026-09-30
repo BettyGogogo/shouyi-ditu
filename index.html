@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手艺地图 · 美好人生事务所</title>
+<style>
+  :root{
+    --navy:#0d1b2a; --navy2:#12263c; --card:#13273d;
+    --gold:#d4a94e; --gold-light:#e8c876; --ink:#e6edf5; --muted:#9fb0c3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+    background:var(--navy); color:var(--ink); line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header.top{border-bottom:2px solid var(--gold);padding:28px 0 22px;text-align:center}
+  .brand{color:var(--gold-light);font-size:15px;letter-spacing:.35em;margin-bottom:10px}
+  h1{font-size:30px;letter-spacing:.08em;margin-bottom:12px}
+  h1 .dot{color:var(--gold)}
+  .lede{color:var(--muted);font-size:15px;max-width:640px;margin:0 auto}
+  .lede b{color:var(--gold-light);font-weight:600}
+  .flow{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;
+    margin:26px 0 6px;color:var(--muted);font-size:14px}
+  .flow .step{background:var(--navy2);border:1px solid #2a415c;border-radius:999px;
+    padding:6px 16px;color:var(--ink)}
+  .flow .arrow{color:var(--gold)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:18px;margin:34px 0 10px}
+  .card{display:block;background:var(--card);border:1px solid #27405c;border-radius:14px;
+    padding:26px 22px;text-decoration:none;color:var(--ink);
+    transition:transform .15s ease,border-color .15s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--gold)}
+  .card .kicker{color:var(--gold);font-size:13px;letter-spacing:.2em;margin-bottom:10px}
+  .card h2{font-size:20px;margin-bottom:8px;letter-spacing:.04em}
+  .card p{color:var(--muted);font-size:14px}
+  .card .go{display:inline-block;margin-top:14px;color:var(--gold-light);font-size:14px;font-weight:600}
+  .xiaobot{margin:34px 0;background:linear-gradient(135deg,#1a2f47,#0d1b2a);
+    border:1px solid var(--gold);border-radius:14px;padding:26px;text-align:center}
+  .xiaobot p{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .xiaobot p b{color:var(--ink)}
+  .btn{display:inline-block;background:var(--gold);color:#0d1b2a;font-weight:700;
+    padding:12px 34px;border-radius:999px;text-decoration:none;font-size:16px;
+    letter-spacing:.05em}
+  .btn:hover{background:var(--gold-light)}
+  .url{display:block;margin-top:10px;color:var(--muted);font-size:12px;word-break:break-all}
+  footer{border-top:1px solid #22384f;margin-top:10px;padding:22px 0 34px;
+    text-align:center;color:var(--muted);font-size:13px}
+  footer .fbrand{color:var(--gold-light);letter-spacing:.25em;font-size:13px;margin-bottom:6px}
+  @media (max-width:560px){
+    h1{font-size:24px}
+    .brand{letter-spacing:.2em}
+    .card{padding:22px 18px}
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">美好人生事务所</div>
+      <h1>手艺地图<span class="dot"> · </span>给普通家庭的选手艺指南</h1>
+      <p class="lede">帮普通家庭的学生选手艺：先 <b>免费自测</b> 缩小方向，再用 <b>方法工具</b> 想清楚，最后看看 <b>冠军故事</b> 里和你一样的普通孩子是怎么走出来的。</p>
+      <div class="flow" aria-label="使用路径">
+        <span class="step">免费自测</span><span class="arrow">→</span>
+        <span class="step">方法工具</span><span class="arrow">→</span>
+        <span class="step">冠军故事</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="cards">
+      <a class="card" href="tiyan/">
+        <div class="kicker">第一步 · 免费体验</div>
+        <h2>测测适合哪类手艺方向</h2>
+        <p>5 分钟小测试，把"不知道选什么"的模糊焦虑，缩小为 3 个值得一试的方向。</p>
+        <span class="go">开始测试 →</span>
+      </a>
+      <a class="card" href="zixun/">
+        <div class="kicker">第二步 · 手艺咨询工具</div>
+        <h2>一步步想清楚怎么选</h2>
+        <p>跟着问题走：兴趣、现实条件、验证方法，一次想清楚选手艺的关键选择。</p>
+        <span class="go">进入工具 →</span>
+      </a>
+      <a class="card" href="guanjun/">
+        <div class="kicker">第三步 · 冠军成长拆解</div>
+        <h2>24 个冠军故事与 7 条借鉴规律</h2>
+        <p>三届世赛冠军的真实成长路径，提炼出普通家庭可以直接借鉴的 7 条规律。</p>
+        <span class="go">看拆解 →</span>
+      </a>
+    </div>
+
+    <section class="xiaobot">
+      <p>想要 <b>64 个手艺项目的完整档案</b>（每篇含 7 天验证任务与升学就业追问）<br>欢迎订阅小报童专栏</p>
+      <a class="btn" href="https://xiaobot.net/p/gj000">一起奔赴@美好人生</a>
+      <span class="url">https://xiaobot.net/p/gj000</span>
+    </section>
+  </main>
+
+  <footer>
+    <div class="fbrand">美好人生事务所</div>
+    <div>手艺地图 · 帮无背景、无资源的普通学生选手艺</div>
+  </footer>
+</body>
+</html>

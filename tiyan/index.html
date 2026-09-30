@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>免费体验版｜手艺方向初筛</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      color-scheme:light dark;
+      --paper:#f1efe9;--surface:#fbfaf6;--ink:#171a18;--muted:#5e635f;--line:#d3d0c8;
+      --accent:#c74326;--accent-dark:#a52d16;--accent-soft:#f4ddd5;--green:#214b42;--green-soft:#dce9e4;
+      --quiet:#e7e5de;--shadow:0 24px 70px rgba(39,32,24,.10);--serif:"Noto Serif SC",serif;--sans:"Noto Sans SC",sans-serif;
+    }
+    @media(prefers-color-scheme:dark){:root{
+      --paper:#171917;--surface:#21241f;--ink:#f5f1e8;--muted:#b7bdb7;--line:#3d413b;
+      --accent:#ef7859;--accent-dark:#ff997e;--accent-soft:#4a2b24;--green:#8bc8b8;--green-soft:#243d36;
+      --quiet:#2b2f2a;--shadow:0 24px 70px rgba(0,0,0,.28)
+    }}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    button,input,select{font:inherit}button{color:inherit}.page{max-width:1180px;margin:0 auto;padding:42px 26px 72px}
+    .layout{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(560px,1.28fr);gap:58px;align-items:start}
+    .intro{position:sticky;top:34px;padding-top:18px}.eyebrow{color:var(--accent);font-size:13px;font-weight:800;letter-spacing:.06em;margin-bottom:14px}
+    h1{font-family:var(--serif);font-size:clamp(40px,5vw,67px);line-height:1.12;letter-spacing:-.045em;margin:0 0 20px;max-width:650px}.lead{font-size:18px;color:var(--muted);margin:0;max-width:530px}
+    .promise{margin:34px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}.promise li{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline}.promise b{font-family:var(--serif);font-size:22px;color:var(--accent)}.promise span{color:var(--muted);font-size:14px}
+    .session-note{margin:18px 0 0;color:var(--muted);font-size:12px}
+    .tool{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);min-height:690px;position:relative;overflow:hidden}
+    .progress{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.progress-step{padding:17px 20px;border-right:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:700}.progress-step:last-child{border-right:0}.progress-step b{display:block;font-family:var(--serif);font-size:20px;line-height:1;margin-bottom:5px;color:var(--line)}.progress-step.active{background:var(--green-soft);color:var(--ink)}.progress-step.active b,.progress-step.done b{color:var(--green)}.progress-step.done{color:var(--green)}
+    .stage{display:none;padding:32px}.stage.active{display:block}.stage-head{display:flex;gap:20px;align-items:start;justify-content:space-between;margin-bottom:26px}.stage h2{font-family:var(--serif);font-size:30px;line-height:1.3;margin:0 0 8px}.stage-head p{margin:0;color:var(--muted);font-size:14px;max-width:560px}.count{flex:0 0 auto;background:var(--quiet);color:var(--muted);padding:6px 10px;font-size:13px;font-weight:700}.count.ready{background:var(--accent-soft);color:var(--accent-dark)}
+    .scenes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.scene{position:relative}.scene input{position:absolute;left:14px;top:17px;width:18px;height:18px;margin:0;accent-color:var(--accent);cursor:pointer}.scene label{display:block;height:100%;padding:14px 14px 14px 44px;border:1px solid var(--line);background:var(--paper);cursor:pointer;line-height:1.48;font-size:14px;transition:border-color .16s,background .16s}.scene input:checked+label{border-color:var(--accent);background:var(--accent-soft)}.scene input:focus-visible+label{outline:3px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:2px}
+    .form-grid{display:grid;gap:24px}.field{border-top:1px solid var(--line);padding-top:20px}.field:first-child{border-top:0;padding-top:0}.field legend{font-family:var(--serif);font-size:20px;font-weight:700;padding:0;margin-bottom:10px}.choice-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.choice{position:relative}.choice input{position:absolute;left:12px;top:16px;width:17px;height:17px;margin:0;accent-color:var(--green);cursor:pointer}.choice label{display:block;height:100%;padding:13px 11px 13px 39px;border:1px solid var(--line);background:var(--paper);cursor:pointer;font-size:13px;line-height:1.45}.choice label strong{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}.choice input:checked+label{border-color:var(--green);background:var(--green-soft)}.choice input:focus-visible+label{outline:3px solid color-mix(in srgb,var(--green) 45%,transparent);outline-offset:2px}
+    .actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:28px}.btn{border:0;background:var(--accent);color:#fff;padding:12px 20px;font-weight:800;cursor:pointer;min-height:48px}.btn:hover{background:var(--accent-dark)}.btn:disabled{opacity:.42;cursor:not-allowed}.btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.secondary:hover{background:var(--quiet)}
+    .results-intro{display:flex;justify-content:space-between;gap:18px;align-items:start;margin-bottom:22px}.results-intro p{margin:4px 0 0;color:var(--muted);font-size:14px}.result-list{display:grid;gap:10px}.result-card{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:18px;border:1px solid var(--line);background:var(--paper)}.rank{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent)}.result-card h3{font-size:20px;line-height:1.3;margin:0 0 4px}.result-card .en{color:var(--muted);font-size:12px;margin-bottom:9px}.comment{margin:0;color:var(--muted);font-size:14px}.comment b{color:var(--ink)}
+    .unlock{margin-top:22px;background:var(--green);color:#fff;padding:24px}.unlock h3{font-family:var(--serif);font-size:24px;margin:0 0 8px}.unlock>p{margin:0;color:#e5f0ec;font-size:14px}.unlock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px;margin:18px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.24);list-style:none}.unlock-grid li{font-size:13px;color:#fff;position:relative;padding-left:18px}.unlock-grid li:before{content:"+";position:absolute;left:0;color:#f7b49f;font-weight:900}.coming{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.24);font-size:13px;color:#e5f0ec}.coming strong{display:block;color:#fff;margin-bottom:10px}.purchase-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 15px;background:#fff;color:var(--green);font-weight:800;text-decoration:none}.purchase-link:hover{text-decoration:underline}.purchase-link:focus-visible{outline:3px solid #f7b49f;outline-offset:3px}
+    .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.copy-status{display:block;min-height:22px;margin-top:9px;color:var(--green);font-size:13px}.foot{margin:26px 0 0;color:var(--muted);font-size:12px;text-align:center}
+    @media(max-width:900px){.page{padding-top:28px}.layout{grid-template-columns:1fr;gap:34px}.intro{position:static;display:grid;grid-template-columns:1fr .8fr;gap:28px;align-items:end}.intro-copy{min-width:0}.promise{margin-top:0}.session-note{grid-column:1/-1;margin-top:-12px}.tool{min-height:0}}
+    @media(max-width:640px){.page{padding:22px 14px 52px}.layout{gap:26px}.intro{display:block;padding:0 3px}.eyebrow{margin-bottom:10px}h1{font-size:39px}.lead{font-size:16px}.promise{margin-top:24px}.session-note{margin-top:14px}.tool{box-shadow:none}.progress-step{padding:12px 8px;font-size:11px}.progress-step b{font-size:17px}.stage{padding:22px 16px 24px}.stage-head{display:block;margin-bottom:20px}.stage h2{font-size:26px}.count{display:inline-block;margin-top:12px}.scenes,.choice-row,.unlock-grid{grid-template-columns:1fr}.scene input{left:16px}.scene label{padding:13px 13px 13px 62px;overflow-wrap:anywhere}.choice input{left:16px}.choice label{padding:13px 11px 13px 58px;overflow-wrap:anywhere}.actions{align-items:stretch}.actions .btn{flex:1}.results-intro{display:block}.result-card{grid-template-columns:36px 1fr;padding:16px}.rank{font-size:23px}.unlock{padding:20px}.result-actions{display:grid;grid-template-columns:1fr}.result-actions .btn{width:100%}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+<nav class="sydt-nav" style="background:#0d1b2a;border-bottom:2px solid #c9a24b;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;"><a href="../" style="color:#e8c876;text-decoration:none;font-weight:700;font-size:15px;">← 手艺地图 · 首页</a><span style="display:flex;gap:14px;flex-wrap:wrap;"><a href="../tiyan/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">免费体验</a><a href="../zixun/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">咨询工具</a><a href="../guanjun/" style="color:#c8d4e0;text-decoration:none;font-size:13px;">冠军拆解</a></span></nav>
+  <main class="page">
+    <div class="layout">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <div class="eyebrow">手艺方向 · 免费初筛</div>
+          <h1 id="page-title">3 分钟，把模糊兴趣变成 3 个可验证方向。</h1>
+          <p class="lead">不从“热门职业”开始，而从你真实做过、愿意反复做的生活场景出发。先缩小范围，再去现场验证。</p>
+        </div>
+        <ul class="promise" aria-label="体验内容">
+          <li><b>2–4</b><span>选择最像你的真实场景</span></li>
+          <li><b>3</b><span>得到值得先验证的手艺方向</span></li>
+          <li><b>0</b><span>不做“一测定终身”的结论</span></li>
+        </ul>
+        <p class="session-note">选择只在本次打开期间保留；刷新页面后会重置。</p>
+      </section>
+
+      <section class="tool" aria-label="手艺方向初筛">
+        <div class="progress" aria-label="测试进度">
+          <div class="progress-step active" data-progress="1"><b>01</b>生活证据</div>
+          <div class="progress-step" data-progress="2"><b>02</b>工作偏好</div>
+          <div class="progress-step" data-progress="3"><b>03</b>三个方向</div>
+        </div>
+
+        <div class="stage active" id="stage1">
+          <div class="stage-head"><div><h2>哪些瞬间真的像你？</h2><p>选 2–4 项。别选“听起来体面”的，只选你做过或愿意反复做的。</p></div><span class="count" id="sceneCount">已选 0 / 4</span></div>
+          <div class="scenes" id="sceneGrid"></div>
+          <div class="actions"><span></span><button class="btn" id="toStep2" disabled>继续设置偏好</button></div>
+        </div>
+
+        <div class="stage" id="stage2">
+          <div class="stage-head"><div><h2>你希望工作更靠近哪里？</h2><p>这不是职业分数，只是在同样匹配的方向里调整排序。</p></div></div>
+          <div class="form-grid">
+            <fieldset class="field"><legend>工作形态</legend><div class="choice-row">
+              <div class="choice"><input type="radio" name="mode" id="mode-field" value="field" checked><label for="mode-field"><strong>真实现场</strong>更多动手、走动与即时判断</label></div>
+              <div class="choice"><input type="radio" name="mode" id="mode-mixed" value="mixed"><label for="mode-mixed"><strong>人机协作</strong>数字工具与实体执行兼顾</label></div>
+              <div class="choice"><input type="radio" name="mode" id="mode-digital" value="digital"><label for="mode-digital"><strong>数字环境</strong>可以偏数字，愿意持续升级</label></div>
+            </div></fieldset>
+            <fieldset class="field"><legend>需求取向</legend><div class="choice-row">
+              <div class="choice"><input type="radio" name="need" id="need-basic" value="basic" checked><label for="need-basic"><strong>先看基础刚需</strong>吃、住、修、美、照护与运行</label></div>
+              <div class="choice"><input type="radio" name="need" id="need-fit" value="fit"><label for="need-fit"><strong>先看个人匹配</strong>需求类型不限，匹配优先</label></div>
+              <div class="choice"><input type="radio" name="need" id="need-growth" value="growth"><label for="need-growth"><strong>先看新技术</strong>愿意承担更快的技能更新</label></div>
+            </div></fieldset>
+          </div>
+          <div class="actions"><button class="btn secondary" data-back="1">返回修改</button><button class="btn" id="generateBtn">看看我的 3 个方向</button></div>
+        </div>
+
+        <div class="stage" id="stage3" aria-live="polite">
+          <div class="results-intro"><div><h2>先验证这 3 个方向</h2><p>它们是下一步调查线索，不是职业结论，也不代表收入高低。</p></div></div>
+          <div class="result-list" id="resultList"></div>
+          <aside class="unlock">
+            <h3>真正做选择，还需要看清代价与路径。</h3>
+            <p>完整版会把“有点像我”继续拆成可比较、可行动的职业档案。</p>
+            <ul class="unlock-grid">
+              <li>64 项手艺完整职业档案</li><li>入行路径与学习周期</li>
+              <li>时间、费用与工具投入</li><li>收入参考与地区差异</li>
+              <li>AI 替代风险与协作方式</li><li>每个方向的低成本验证动作</li>
+            </ul>
+            <div class="coming"><strong>完整版入口</strong><a class="purchase-link" href="https://xiaobot.net/p/gj000" target="_blank" rel="noopener noreferrer">前往「一起奔赴@美好人生」</a></div>
+          </aside>
+          <div class="result-actions"><button class="btn" id="copyBtn">复制我的 3 个方向</button><button class="btn secondary" id="restartBtn">重新测一次</button></div>
+          <span class="copy-status" id="copyStatus" role="status"></span>
+          <p class="foot">建议拿着这 3 个方向去问一线从业者：新人第一年每天做什么？最容易劝退的地方是什么？</p>
+        </div>
+      </section>
+    </div>
+  </main>
+<script>
+(function(){
+  const scenarios=[
+    ['repair','家里东西坏了，我总想先拆开看看。'],
+    ['feed','我愿意花一下午做饭，也享受“投喂”的快乐。'],
+    ['beauty','我喜欢捯饬自己或朋友的发型、妆容。'],
+    ['precision','拼装、打磨、手工时，我享受“严丝合缝”。'],
+    ['care','照顾老人、小孩或身体不适的人，我有耐心。'],
+    ['outdoor','比起久坐，我更愿意在现场把东西建出来。'],
+    ['systems','面对机器或流程，我会追着问“为什么没跑起来”。'],
+    ['digital','我能长时间调试软件、模型或数字工具。'],
+    ['visual','我对颜色、比例、造型和呈现方式很敏感。'],
+    ['people','面对陌生人，我愿意倾听、解释并处理突发情况。'],
+    ['transport','车辆、轨道、飞机或无人机的运行原理会吸引我。']
+  ];
+  const skills=[
+    [3,'智慧安防技术','Intelligent Security Technology','build',['repair','systems','digital'],1,2],[12,'瓷砖贴面','Wall and Floor Tiling','build',['precision','outdoor'],1,2],[15,'管道与制暖','Plumbing and Heating','build',['repair','outdoor'],1,2],[18,'电气装置','Electrical Installations','build',['repair','systems'],1,2],[20,'砌筑','Bricklaying','build',['outdoor','precision'],1,2],[21,'抹灰与隔墙系统','Plastering and Drywall Systems','build',['outdoor','precision'],1,2],[22,'油漆与装饰','Painting and Decorating','build',['visual','outdoor'],1,2],[24,'家具制作','Cabinetmaking','build',['precision','repair'],0,2],[25,'精细木工','Joinery','build',['precision'],0,2],[26,'木工','Carpentry','build',['precision','outdoor'],1,2],[37,'园艺','Landscape Gardening','build',['outdoor','visual'],1,2],[38,'制冷与空调','Refrigeration and Air Conditioning','build',['repair','systems'],1,2],[46,'混凝土建筑','Concrete Construction Work','build',['outdoor'],1,2],[58,'数字建造','Digital Construction','build',['digital','systems'],0,1],
+    [1,'工业机械','Industrial Mechanics','make',['repair','systems','precision'],1,2],[4,'机电一体化','Mechatronics','make',['systems','repair'],0,1],[5,'CAD 机械设计','Mechanical Engineering CAD','make',['digital','precision'],0,0],[6,'数控车','CNC Turning','make',['precision','systems'],0,1],[7,'数控铣','CNC Milling','make',['precision','systems'],0,1],[10,'焊接','Welding','make',['precision','outdoor'],1,2],[16,'电子技术','Electronics','make',['repair','systems','precision'],0,1],[19,'工业控制','Industrial Control','make',['systems','digital'],0,1],[23,'自主移动机器人','Autonomous Mobile Robotics','make',['systems','digital'],0,1],[48,'工业 4.0','Industry 4.0','make',['systems','digital'],0,1],[52,'化学实验室技术','Chemical Laboratory Technology','make',['precision','systems'],0,1],[55,'水处理技术','Water Technology','make',['systems','repair'],1,1],[57,'增材制造','Additive Manufacturing','make',['digital','precision'],0,1],[59,'工业设计技术','Industrial Design Technology','make',['visual','digital','precision'],0,1],[60,'光电技术','Optoelectronic Technology','make',['precision','systems'],0,1],[62,'可再生能源','Renewable Energy','make',['outdoor','systems','repair'],1,2],[63,'机器人系统集成','Robot Systems Integration','make',['systems','digital'],0,1],
+    [2,'信息网络布线','ICT Network Infrastructure','ict',['repair','systems','digital'],0,1],[8,'移动应用开发','Mobile Applications Development','ict',['digital','systems'],0,0],[9,'软件应用开发','Software Applications Development','ict',['digital','systems'],0,0],[11,'软件测试','Software Testing','ict',['digital','systems','repair'],0,0],[17,'网站技术','Web Technologies','ict',['digital','visual'],0,0],[39,'网络系统管理','IT Network Systems Administration','ict',['digital','systems','repair'],0,0],[53,'云计算','Cloud Computing','ict',['digital','systems'],0,0],[54,'网络安全','Cyber Security','ict',['digital','systems','repair'],0,0],
+    [27,'珠宝加工','Jewellery','creative',['precision','visual'],0,2],[28,'花艺','Floristry','creative',['visual','care'],0,2],[31,'时装技术','Fashion Technology','creative',['visual','precision'],0,2],[40,'平面设计技术','Graphic Design Technology','creative',['visual','digital'],0,0],[44,'商品展示技术','Visual Merchandising','creative',['visual','people'],0,2],[45,'数字交互媒体设计','Digital Interactive Media Design','creative',['visual','digital'],0,0],[50,'3D 数字游戏艺术','3D Digital Game Art','creative',['visual','digital','precision'],0,0],
+    [29,'美发','Hairdressing','service',['beauty','people','visual'],1,2],[30,'美容','Beauty Therapy','service',['beauty','care','people'],1,2],[32,'糖艺／西点制作','Pâtisserie and Confectionery','service',['feed','precision','visual'],1,2],[34,'烹饪（西餐）','Cooking','service',['feed','people'],1,2],[35,'餐厅服务','Restaurant Service','service',['people','care','feed'],1,2],[41,'健康和社会照护','Health and Social Care','service',['care','people'],1,2],[42,'口腔修复工艺技术','Dental Prosthetics','service',['precision','digital','care'],1,1],[43,'零售','Retail Sales','service',['people','visual'],1,2],[47,'烘焙','Bakery','service',['feed','precision'],1,2],[56,'酒店接待','Hotel Reception','service',['people','care','digital'],1,1],
+    [13,'车身修理','Autobody Repair','transport',['repair','precision','transport'],1,2],[14,'飞机维修','Aircraft Maintenance','transport',['repair','precision','transport'],1,2],[33,'汽车技术','Automobile Technology','transport',['repair','transport','systems'],1,2],[36,'汽车喷漆','Car Painting','transport',['visual','precision','transport'],0,2],[49,'重型车辆维修','Heavy Vehicle Technology','transport',['repair','transport','systems'],1,2],[51,'物流与货运代理','Logistics and Freight Forwarding','transport',['systems','people','transport'],1,0],[61,'轨道车辆技术','Rail Vehicle Technology','transport',['repair','transport','systems'],1,2],[64,'无人机系统','Unmanned Aerial Systems','transport',['transport','systems','digital'],0,1]
+  ].map(function(x){return{id:x[0],cn:x[1],en:x[2],domain:x[3],tags:x[4],basic:x[5],physical:x[6]}});
+
+  const domainNames={build:'结构与建筑',make:'制造与工程',ict:'信息与通信',creative:'创意艺术与时尚',service:'社会与个人服务',transport:'运输与物流'};
+  const sceneNames=Object.fromEntries(scenarios);
+  const sceneGrid=document.getElementById('sceneGrid');
+  const selected=new Set();
+  const toStep2=document.getElementById('toStep2');
+  sceneGrid.innerHTML=scenarios.map(function(s,i){return '<div class="scene"><input type="checkbox" id="scene-'+i+'" value="'+s[0]+'"><label for="scene-'+i+'">'+s[1]+'</label></div>'}).join('');
+
+  function setStage(n){
+    document.querySelectorAll('.stage').forEach(function(el){el.classList.toggle('active',el.id==='stage'+n)});
+    document.querySelectorAll('.progress-step').forEach(function(el){const p=Number(el.dataset.progress);el.classList.toggle('active',p===n);el.classList.toggle('done',p<n)});
+    document.querySelector('.tool').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function updateCount(){
+    const count=document.getElementById('sceneCount');count.textContent='已选 '+selected.size+' / 4';count.classList.toggle('ready',selected.size>=2);toStep2.disabled=selected.size<2;
+  }
+  sceneGrid.addEventListener('change',function(e){
+    if(!e.target.matches('input'))return;
+    if(e.target.checked){if(selected.size>=4){e.target.checked=false;return}selected.add(e.target.value)}else selected.delete(e.target.value);
+    updateCount();
+  });
+  toStep2.addEventListener('click',function(){setStage(2)});
+  document.querySelector('[data-back="1"]').addEventListener('click',function(){setStage(1)});
+
+  function getRadio(name){return document.querySelector('input[name="'+name+'"]:checked').value}
+  function rankSkills(){
+    const mode=getRadio('mode'),need=getRadio('need');
+    const ranked=skills.map(function(s){
+      const matched=s.tags.filter(function(t){return selected.has(t)});let score=matched.length*6;
+      if(mode==='field')score+=s.physical*1.8;if(mode==='mixed')score+=s.physical===1?3:1;if(mode==='digital')score+=s.physical===0?3:(s.physical===1?2:0);
+      if(need==='basic'&&s.basic)score+=2.5;if(need==='growth'&&(s.tags.includes('digital')||s.tags.includes('systems')))score+=2.5;
+      return{s:s,score:score,matched:matched};
+    }).filter(function(x){return x.matched.length>0}).sort(function(a,b){return b.score-a.score||a.s.id-b.s.id});
+    const chosen=[],usedDomains=new Set();
+    ranked.forEach(function(item){if(chosen.length<3&&!usedDomains.has(item.s.domain)){chosen.push(item);usedDomains.add(item.s.domain)}});
+    ranked.forEach(function(item){if(chosen.length<3&&!chosen.includes(item))chosen.push(item)});
+    return chosen;
+  }
+  function commentFor(item){
+    const labels=item.matched.slice(0,2).map(function(t){return sceneNames[t].replace(/[。]/g,'')});
+    const mode=item.s.physical===2?'真实现场、手眼配合和即时判断会占较大比重':item.s.physical===1?'需要把数字工具、系统判断落到真实任务里':'主要在数字环境里解决问题，工具更新会更快';
+    return '你在“'+labels.join('”和“')+'”上的选择与它有交集；'+mode+'。';
+  }
+  let latest=[];
+  document.getElementById('generateBtn').addEventListener('click',function(){
+    latest=rankSkills();
+    document.getElementById('resultList').innerHTML=latest.map(function(item,i){return '<article class="result-card"><div class="rank">'+(i+1)+'</div><div><h3>'+item.s.cn+'</h3><div class="en">'+item.s.en+' · '+domainNames[item.s.domain]+'</div><p class="comment"><b>为什么值得先看：</b>'+commentFor(item)+'</p></div></article>'}).join('');
+    setStage(3);
+  });
+  document.getElementById('restartBtn').addEventListener('click',function(){
+    selected.clear();document.querySelectorAll('.scene input').forEach(function(i){i.checked=false});updateCount();document.getElementById('copyStatus').textContent='';setStage(1);
+  });
+  document.getElementById('copyBtn').addEventListener('click',async function(){
+    const text=['我的手艺方向初筛','','我选择的生活证据：',...Array.from(selected).map(function(t){return '• '+sceneNames[t]}),'','先验证的 3 个方向：',...latest.map(function(x,i){return (i+1)+'. '+x.s.cn+' / '+x.s.en}),'','提醒：这只是初筛线索。下一步要核实当地入行路径、学习周期、费用、身体要求和真实岗位。'].join('\n');
+    const status=document.getElementById('copyStatus');
+    try{await navigator.clipboard.writeText(text);status.textContent='已复制，可以粘贴到备忘录或咨询记录里。'}catch(e){status.textContent='当前环境不允许复制，请手动记录上方三个方向。'}
+  });
+})();
+</script>
+</body>
+</html>
